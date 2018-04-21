@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <link rel="stylesheet" href="../css/iosSelect.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <title>会员信息</title>
+</head>
+<body>
+<div class="wrap manage-box user-page">
+        <div class="content">
+            <div class="tab_bor">
+                <div class="tab_con">
+                    <ul class="tab_ul clearfix member_list" style="display: block;">
+                        <li>
+                            <div>
+                                <img src="../images/name.png" alt=""/>
+                                <span>张萌萌</span>
+                            </div>
+                            <div>
+                                <img src="../images/sex.png" alt=""/>
+                                <span>女</span>
+                            </div>
+                        </li>
+                        <li >
+                            <div>
+                                <img src="../images/tel.png" alt=""/>
+                                <span class="member-tel">18217003987</span>
+                            </div>
+                            <div>
+                                <img src="../images/bir.png" alt=""/>
+                                <span>1992-3-8</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="../images/state.png" alt=""/>
+                                <span class="comState">有效回访</span>
+                            </div>
+                            <div>
+                                <img src="../images/BA.png" alt=""/>
+                                <span>王艺静</span>
+                            </div>
+                        </li>
+                        <li><span class="left">回访计划名称</span><span class="right">生日，维持顾客</span></li>
+                        <li><span class="left">回访时间</span><span class="right">2018-3-03-12</span></li>
+                        <li><span class="left">会员等级</span><span class="right">VIP会员</span></li>
+                        <li class="com_detail" ><span class="left "> 沟通明细</span> <span class="right">感觉非常温和，容易吸收。很适合她的肤质，表示会继续使用雪花秀相关产品</span></li>
+                        <li><span class="left">最后一次购买金额</span><span class="right">2011元</span></li>
+                        <li class="last_buy" style="border-bottom:0"><span  class="left ">最后一次购买产品</span><span class="right">雪花秀顺行柔和洁面泡沫200g；雪花秀莹彩腮红10g；雪花秀滋盈肌本护肤套装；雪花秀与润修护睡眠面膜…</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="member-bottom">
+            <div class="phone_click">
+                <img src="../images/call-icon.png" alt="img"/>
+                <span>联系TA</span>
+            </div>
+            <b></b>
+            <div class="edit_click">
+                <img src="../images/write.png" alt=""/>
+                <span>记录结果</span>
+            </div>
+        </div>
+    <div class="layer layer_btn layer_tel" style="display: none;">
+        <div class="layer_box">
+            <h4>提示</h4>
+            <p>确定拨打电话：<em></em></p>
+            <div class="btn">
+                <div class="btn_left">取消</div>
+                <div class="btn_right"><a>确认</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="layer layer_btn layer_edit" style="display: none;">
+        <div class="layer_box">
+            <h4>编辑</h4>
+            <div class="layer-content">
+                <div>
+                    <span>完成状态</span>
+                    <div>
+                        <span class="state">
+                             <input type="radio"  name="radio" value="未回访"> <label>未回访</label>
+                        </span>
+                        <span  class="state">
+                            <input type="radio" name="radio" value="有效回访"> <label>有效回访</label>
+                        </span>
+                         <span  class="state">
+                            <input type="radio" name="radio" value="未沟通"> <label>未沟通</label>
+                        </span>
+                         <span  class="state">
+                            <input type="radio" name="radio" value="错号/空号"><label> 错号/空号</label>
+                        </span>
+                         <span  class="state">
+                            <input type="radio" name="radio" value="拒绝回访"> <label>拒绝回访</label>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <span>沟通明细</span>
+                    <div>
+                        <textarea name="" id="layer_gm" ></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="btn">
+                <div class="btn_left">取消</div>
+                <div class="btn_right">确定</div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/iosSelect.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(function(){
+            var tabLi = $(".tab ul li"),
+                    tabUl = $(".tab_con ul");
+            tabLi.click(function(){
+                var index = $(this).index();
+                $(this).addClass("active").siblings().removeClass("active");
+                tabUl.hide().eq(index).show();
+            });
+
+            var phone=$(".phone_click"),
+                edit=$('.edit_click'),
+                membertel=$(".member-tel");
+            phone.click(function(){
+                var val=membertel.html();
+                $('.layer_tel').fadeIn().find('em').html(val);
+                $(".btn .btn_right").find('a').attr('href',"tel:"+val+"");
+            });
+            edit.click(function(){
+                var  comS=$('.comState').html(),
+                     comD=$('.com_detail .right').html(),
+                     input=$('.layer_edit').find('input[type=radio]');
+                     $(".layer_edit").fadeIn();
+                $('#layer_gm').val(comD);
+                for(var i=0;i<input.length;i++){
+                    var val=$(input[i]).val();
+                    if(val==comS){
+                        $(input[i]).addClass('chooseSelect')
+                    }
+                }
+     });
+            $(".btn .btn_left").click(function(){
+                $(this).parents(".layer").fadeOut();
+            });
+            $(".state").click(function(){
+                var seleinput=$(this).children("input");
+                console.log(seleinput);
+                if( seleinput.attr('checked')!== 'checked'){
+                    seleinput.addClass('chooseSelect');
+                    seleinput.attr('checked','checked');
+                    $(this).siblings('span').children("input").removeAttr('checked').removeClass('chooseSelect');
+                }else{
+                    seleinput.removeClass('chooseSelect');
+                    seleinput.removeAttr('checked');
+                }
+            })
+        });
+    </script>
+</div>
+</body>
+</html>

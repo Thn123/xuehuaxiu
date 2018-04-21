@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <link rel="stylesheet" href="../css/iosSelect.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <title>回访任务</title>
+    <style>
+        body {
+            background: url(../images/bg.png) no-repeat;
+        }
+        .wrap {
+            min-height:100%;
+
+        }
+    </style>
+</head>
+<body>
+<div class="wrap manage-box">
+    <div class="banner visit-header">
+        <div class="visit-text">
+            <p>
+            </p>
+            <p>上海第一八佰伴店</p>
+            <p>王以静</p>
+        </div>
+        <div class="visit-calendar">8</div>
+    </div>
+    <section class="visit-num">
+        <ul>
+            <li class="left">本月回访总量：<em>500</em></li>
+            <li class="left1 left"></li>
+            <li class="left">已回访：<em>35</em></li>
+        </ul>
+    </section>
+    <section style="background:#fff;">
+        <div class="visitSection">
+            <ul class="visit-content">
+                <li><a href="managerdetail.html">
+                    <div>
+                        <img src="../images/birthday-icon.png" alt=""/>
+                        <span class="visit_progress" w="10"></span>
+                    </div>
+                    <span class="visit-content_text">生日祝福</span>
+                    <span class="visit-content_text-perc"><em class="ed_visit">30</em>/<em class="total_visit">100</em></span>
+                </a></li>
+                <li><a  href="managenc.html">
+                    <div >
+                        <img src="../images/call-icon.png" alt=""/>
+                        <span class="visit_progress" w="10"></span>
+                    </div>
+                    <span class="visit-content_text">新客回访</span>
+                    <span class="visit-content_text-perc"><em class="ed_visit">30</em>/<em class="total_visit">100</em></span>
+                </a></li>
+                <li><a>
+                    <div>
+                        <img src="../images/bp-icon.png" alt=""/>
+                        <span class="visit_progress" w="10"></span>
+                    </div>
+                    <span class="visit-content_text">积分到期清零提醒</span>
+                    <span class="visit-content_text-perc"><em class="ed_visit">30</em>/<em class="total_visit">100</em></span>
+                </a></li>
+                <li><a>
+                    <div>
+                        <img src="../images/customer-icon.png" alt=""/>
+                        <span class="visit_progress" w="10"></span>
+                    </div>
+                    <span class="visit-content_text">预防流失客人</span>
+                    <span class="visit-content_text-perc"><em class="ed_visit">30</em>/<em class="total_visit">100</em></span>
+                </a></li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/iosSelect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/progressBar.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function(){
+        var showDateDom = $('.visit-calendar');
+        var now = new Date();
+        var nowYear = now.getFullYear();
+        var nowMonth = now.getMonth() + 1;
+        showDateDom.attr('data-year', nowYear);
+        showDateDom.attr('data-month', nowMonth);
+        // 数据初始化
+        function formatYear (nowYear){
+            var arr = [];
+            for (var i = 1900; i <= nowYear; i++) {
+                arr.push({
+                    id: i + '',
+                    value: i + '年'
+                });
+            }
+            return arr;
+        }
+        function formatMonth () {
+            var arr = [];
+            for (var i = 1; i <= nowMonth; i++) {
+                arr.push({
+                    id: i + '',
+                    value: i + '月'
+                });
+            }
+            return arr;
+        }
+        var yearData = function(callback) {
+            callback(formatYear(nowYear))
+        }
+        var monthData = function (year, callback) {
+            callback(formatMonth());
+        };
+
+        showDateDom.bind('click', function () {
+            var oneLevelId = showDateDom.attr('data-year');
+            var twoLevelId = showDateDom.attr('data-month');
+            var iosSelect = new IosSelect(2,
+                    [yearData, monthData],
+                    {
+                        title: '回访时间',
+                        itemHeight: 35,
+                        oneLevelId: oneLevelId,
+                        twoLevelId: twoLevelId,
+                        showLoading: true,
+                        callback: function (selectOneObj, selectTwoObj) {
+                            showDateDom.attr('data-year', selectOneObj.id);
+                            showDateDom.attr('data-month', selectTwoObj.id);
+                            var newBirthday = parseFloat(parseFloat(selectTwoObj.value));
+                            showDateDom.html(newBirthday).attr('new_value', newBirthday);
+                        }
+                    });
+        });
+    })
+</script>
+</body>
+</html>
